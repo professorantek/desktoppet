@@ -5,6 +5,7 @@
 class Character{
     private:
         IMG_Animation* animation;
+        std::vector<SDL_Texture*> sprites;
         char* antimationPath;
         std::pair<int, int> pos;
         const int width = 100, height= 100;
@@ -13,23 +14,23 @@ class Character{
     public:
         /**
          * Function to set the path for the animation files
-         * \param path  - const char* containing path to an animation file
-         * \param Delays - int* of millisecond delay between animations frame
+         * \param path const char* containing path to an animation file
+         * \param r  SDL_Renderer*
          * \returns true - if the path was set and animation was initialized; false - if one of them was not 
         */
-        bool SetAnimation(const char* path, int *Delays);
+        bool SetAnimation(const char* path, SDL_Renderer *r);
         /**
          * Function that moves the character around the screen
         */
         void Move();
         /**
          * Function to set the right frame of the animation
-         * \param now - int of current time
+         * \param now int of current time
         */
         void Animate(int now);
         /**
          * Function displays the character on the screen
-         * \param r - SDL_Renderer*
+         * \param r SDL_Renderer*
         */
         void Display(SDL_Renderer* r);
         

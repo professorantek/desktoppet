@@ -5,6 +5,7 @@
 class Character{
     private :
         IMG_Animation* animation = nullptr;
+        std::vector<SDL_Texture*> sprites;
         const char* animationPath = nullptr;
         std::pair<int, int> pos = {1500, 800};
         const int width = 100, height = 100;
@@ -12,7 +13,7 @@ class Character{
         int lastTime = 0;
 
     public:
-        bool SetAnimation(const char* path){
+        bool SetAnimation(const char* path, SDL_Renderer *r){
             animationPath = path;
             if(animationPath == nullptr){
                 return false;
@@ -20,6 +21,10 @@ class Character{
             animation = IMG_LoadAnimation(animationPath);
             if(animation == nullptr){
                 return false;
+            }
+            for(int i=0; i<animation->count; i++){
+                SDL_Texture* tex = SDL_CreateTextureFromSurface(r, animation->frames[i]); 
+                sprites.push_back(tex);
             }
             return true;
         }
@@ -73,7 +78,7 @@ class Character{
             rect.y = pos.second;
             rect.h = 100;
             rect.w = 100;
-            SDL_Texture* tex = SDL_CreateTextureFromSurface(r, animation->frames[frameIndex]);
+            SDL_Texture* tex = sprites[frameIndex];
             SDL_RenderCopy(r, tex, NULL,&rect);
         }
         
