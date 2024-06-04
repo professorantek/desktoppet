@@ -23,6 +23,12 @@ class Character{
          * Function that moves the character around the screen
         */
         void Move();
+        void SetHoldPoint();
+        /**
+         * Function to move the character to a defined position
+         * \param dir pair of ints {x, y}
+        */
+        void ForceMove(int x1, int y1, int x2, int y2);
         /**
          * Function to set the right frame of the animation
          * \param now int of current time

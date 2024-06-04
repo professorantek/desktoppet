@@ -1,6 +1,7 @@
 #include <SDL2/SDL_syswm.h>
 #include <windows.h>
 #include "Character.cpp"
+#include <iostream>
 
 
 #define TICKS_PER_FRAME (1000/60)
@@ -8,6 +9,7 @@ const int DISPLAYW = 1920, DISPLAYH = 1080;
 const char* title = "WindowPet";
 int animationDelays = 100;
 int lastTime = 0;
+bool holding = false;
 SDL_Window* window= nullptr;
 SDL_Renderer* renderer= nullptr;
 Character c;
@@ -32,14 +34,14 @@ bool MakeWindowTransparent(SDL_Window* window, COLORREF colorKey) {
 int main(){
     CreateWindowAndRenderer();
     MakeWindowTransparent(window, RGB(255,0,255));
-    c.SetAnimation("animation.gif");
+    c.SetAnimation("animation.gif",renderer);
     bool var = true;
     while(var){
         while(SDL_GetTicks64()-lastTime<TICKS_PER_FRAME){
             SDL_Delay(1);
         }
         lastTime = SDL_GetTicks64();
-        int x,y;
+        int x,y, x2, y2;
         SDL_Event event;
         if(SDL_PollEvent(&event)){
             if(event.type == SDL_KEYDOWN){
@@ -48,6 +50,30 @@ int main(){
                         var = false;
                         break;
                     }
+                }
+            }
+            if(event.type == SDL_MOUSEBUTTONDOWN){
+                switch(event.button.button){
+                    case SDL_BUTTON_LMASK:{
+                        SDL_GetMouseState(&x, &y);
+                        c.SetHoldPoint();
+                        holding = true;
+                        break;
+                    }
+                }
+            }
+            if(event.type == SDL_MOUSEBUTTONUP){
+                switch(event.button.button){
+                    case SDL_BUTTON_LMASK:{
+                        holding = false;
+                        break;
+                    }
+                }
+            }
+            if(event.type == SDL_MOUSEMOTION){
+                if(holding){
+                    SDL_GetMouseState(&x2, &y2);
+                    c.ForceMove(x, y, x2, y2);
                 }
             }
             

@@ -8,6 +8,7 @@ class Character{
         std::vector<SDL_Texture*> sprites;
         const char* animationPath = nullptr;
         std::pair<int, int> pos = {1500, 800};
+        int x3, y3;
         const int width = 100, height = 100;
         int frameIndex = 0;
         int lastTime = 0;
@@ -26,6 +27,7 @@ class Character{
                 SDL_Texture* tex = SDL_CreateTextureFromSurface(r, animation->frames[i]); 
                 sprites.push_back(tex);
             }
+            
             return true;
         }
         void Move(int width, int height){
@@ -63,6 +65,15 @@ class Character{
                     break;
                 }
             }    
+            return;
+        }
+        void SetHoldPoint(){
+            x3 = pos.first;
+            y3 = pos.second;
+        }
+        void ForceMove(int x1, int y1, int x2, int y2){
+            pos.first = x2-(x1-x3);
+            pos.second = y2-(y1-y3);
             return;
         }
         void Animate(int now){
