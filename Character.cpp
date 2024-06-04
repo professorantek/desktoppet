@@ -1,0 +1,87 @@
+#include <vector>
+#include <SDL2/SDL.h>
+#include <SDL2/SDL_image.h>
+#include <time.h>
+class Character{
+    private :
+        IMG_Animation* animation = nullptr;
+        const char* animationPath = nullptr;
+        std::pair<int, int> pos = {1500, 800};
+        const int width = 100, height = 100;
+        int frameIndex = 0;
+        int lastTime = 0;
+
+    public:
+        bool SetAnimation(const char* path){
+            animationPath = path;
+            if(animationPath == nullptr){
+                return false;
+            }
+            animation = IMG_LoadAnimation(animationPath);
+            if(animation == nullptr){
+                return false;
+            }
+            return true;
+        }
+        void Move(int width, int height){
+            srand(time(0));
+            int dir = rand()%4;
+
+            
+            switch(dir){
+                case 0:{
+                    pos.first++;
+                    if(pos.first+100>width){
+                        pos.first--;
+                    }
+                    break;
+                }
+                case 1:{
+                    pos.second++;
+                    if(pos.second+100>height){
+                        pos.second--;
+                    }
+                    break;
+                }
+                case 2:{
+                    pos.first--;
+                    if(pos.first<101){
+                        pos.first++;
+                    }
+                    break;
+                }
+                case 3:{
+                    pos.second--;
+                    if(pos.second<101){
+                        pos.second++;
+                    }
+                    break;
+                }
+            }    
+            return;
+        }
+        void Animate(int now){
+            if(now - lastTime>=*animation->delays){
+                frameIndex = (frameIndex+1)%animation->count;
+                lastTime = now;
+            }
+            
+        }
+        void Display(SDL_Renderer* r){
+            SDL_Rect rect;
+            rect.x = pos.first;
+            rect.y = pos.second;
+            rect.h = 100;
+            rect.w = 100;
+            SDL_Texture* tex = SDL_CreateTextureFromSurface(r, animation->frames[frameIndex]);
+            SDL_RenderCopy(r, tex, NULL,&rect);
+        }
+        
+
+
+};
+
+
+
+
+
