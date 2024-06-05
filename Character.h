@@ -26,7 +26,8 @@ class Character{
         void SetHoldPoint();
         /**
          * Function to move the character to a defined position
-         * \param dir pair of ints {x, y}
+         * \param x1,y1 position of the mouse at SetHoldPoint() - used to calculate the right position after moving
+         * \param x2,y2 current position of the mouse
         */
         void ForceMove(int x1, int y1, int x2, int y2);
         /**

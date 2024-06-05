@@ -1,12 +1,11 @@
 #include <SDL2/SDL_syswm.h>
 #include <windows.h>
 #include "Character.cpp"
-#include <iostream>
-
 
 #define TICKS_PER_FRAME (1000/60)
 const int DISPLAYW = 1920, DISPLAYH = 1080;
 const char* title = "WindowPet";
+const char* animationPath = "animation.gif";
 int animationDelays = 100;
 int lastTime = 0;
 bool holding = false;
@@ -34,7 +33,7 @@ bool MakeWindowTransparent(SDL_Window* window, COLORREF colorKey) {
 int main(){
     CreateWindowAndRenderer();
     MakeWindowTransparent(window, RGB(255,0,255));
-    c.SetAnimation("animation.gif",renderer);
+    c.SetAnimation(animationPath ,renderer);
     bool var = true;
     while(var){
         while(SDL_GetTicks64()-lastTime<TICKS_PER_FRAME){
