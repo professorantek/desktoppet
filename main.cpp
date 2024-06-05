@@ -1,6 +1,6 @@
 #include <SDL2/SDL_syswm.h>
 #include <windows.h>
-#include "Character.cpp"
+#include "Character.h"
 
 #define TICKS_PER_FRAME (1000/60)
 const int DISPLAYW = 1920, DISPLAYH = 1080;
@@ -75,8 +75,6 @@ int main(){
                     c.ForceMove(x, y, x2, y2);
                 }
             }
-            
-
         }
         SDL_SetRenderDrawColor(renderer, 255,0,255,255);
         SDL_RenderClear(renderer);
@@ -85,7 +83,6 @@ int main(){
             c.Move(DISPLAYW, DISPLAYH);
         }
         c.Display(renderer);
-        SDL_SetRenderDrawColor(renderer, 255,255,255,255);
         SDL_RenderPresent(renderer);
     }
     SDL_DestroyWindow(window);

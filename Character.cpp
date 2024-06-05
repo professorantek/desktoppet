@@ -2,6 +2,7 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
 #include <time.h>
+
 class Character{
     private :
         IMG_Animation* animation = nullptr;
@@ -9,7 +10,7 @@ class Character{
         const char* animationPath = nullptr;
         std::pair<int, int> pos = {1500, 800};
         int x3, y3;
-        const int width = 100, height = 100;
+        const int width = 32, height = 32;
         int frameIndex = 0;
         int lastTime = 0;
 
@@ -30,7 +31,7 @@ class Character{
             
             return true;
         }
-        void Move(int width, int height){
+        void Move(int w, int h){
             srand(time(0));
             int dir = rand()%4;
 
@@ -38,28 +39,28 @@ class Character{
             switch(dir){
                 case 0:{
                     pos.first++;
-                    if(pos.first+100>width){
+                    if(pos.first+width>w){
                         pos.first--;
                     }
                     break;
                 }
                 case 1:{
                     pos.second++;
-                    if(pos.second+100>height){
+                    if(pos.second+height>h){
                         pos.second--;
                     }
                     break;
                 }
                 case 2:{
                     pos.first--;
-                    if(pos.first<101){
+                    if(pos.first<width){
                         pos.first++;
                     }
                     break;
                 }
                 case 3:{
                     pos.second--;
-                    if(pos.second<101){
+                    if(pos.second<height){
                         pos.second++;
                     }
                     break;
@@ -87,14 +88,10 @@ class Character{
             SDL_Rect rect;
             rect.x = pos.first;
             rect.y = pos.second;
-            rect.h = 100;
-            rect.w = 100;
-            SDL_Texture* tex = sprites[frameIndex];
-            SDL_RenderCopy(r, tex, NULL,&rect);
+            rect.h = width;
+            rect.w = height;
+            SDL_RenderCopy(r, sprites[frameIndex], NULL, &rect);
         }
-        
-
-
 };
 
 

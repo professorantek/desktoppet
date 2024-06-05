@@ -8,7 +8,7 @@ class Character{
         std::vector<SDL_Texture*> sprites;
         char* antimationPath;
         std::pair<int, int> pos;
-        const int width = 100, height= 100;
+        const int width = 200, height = 200;
         int frameIndex;
         int lastTime;
     public:
@@ -22,7 +22,7 @@ class Character{
         /**
          * Function that moves the character around the screen
         */
-        void Move();
+        void Move(int w, int h);
         void SetHoldPoint();
         /**
          * Function to move the character to a defined position
@@ -40,7 +40,4 @@ class Character{
          * \param r SDL_Renderer*
         */
         void Display(SDL_Renderer* r);
-        
-        
-        
 };
