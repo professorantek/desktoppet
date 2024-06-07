@@ -1,24 +1,29 @@
+#ifndef CHARACTER_H
+#define CHARACTER_H
+
 #include <vector>
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
 #include <time.h>
+#include <string>
 class Character{
     private:
-        IMG_Animation* animation;
+        IMG_Animation* animation = nullptr;
         std::vector<SDL_Texture*> sprites;
-        char* antimationPath;
-        std::pair<int, int> pos;
+        std::string animationPath = "";
+        std::pair<int, int> pos = {960, 540};
+        int x3,y3;
         const int width = 200, height = 200;
-        int frameIndex;
-        int lastTime;
+        int frameIndex = 0;
+        int lastTime = 0;
     public:
         /**
          * Function to set the path for the animation files
-         * \param path const char* containing path to an animation file
+         * \param path string containing path to an animation file
          * \param r  SDL_Renderer*
          * \returns true - if the path was set and animation was initialized; false - if one of them was not 
         */
-        bool SetAnimation(const char* path, SDL_Renderer *r);
+        bool SetAnimation(std::string path, SDL_Renderer *r);
         /**
          * Function that moves the character around the screen
         */
@@ -41,3 +46,4 @@ class Character{
         */
         void Display(SDL_Renderer* r);
 };
+#endif

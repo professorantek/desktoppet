@@ -3,9 +3,10 @@
 #include "Character.h"
 
 #define TICKS_PER_FRAME (1000/60)
+
 const int DISPLAYW = 1920, DISPLAYH = 1080;
 const char* title = "WindowPet";
-const char* animationPath = "animation.gif";
+std::string animationPath = "animation.gif";
 int animationDelays = 100;
 int lastTime = 0;
 bool holding = false;
