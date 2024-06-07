@@ -1,4 +1,2 @@
-A desktop pet that wanders around your screen and you can move it around.
-To change the animation create gif of your own WindowPet!
-Change animationPath to the right path.
+Pet animation should be a .gif
 To tweak pet size go into Character.h
