@@ -92,8 +92,9 @@ void Loop(){
 int main(){
     CreateWindowAndRenderer();
     MakeWindowTransparent(window, RGB(255,0,255));
-    c.SetAnimation(animationPath ,renderer);
-    Loop();
+    if(c.SetAnimation(animationPath ,renderer)){
+        Loop();
+    }
     SDL_DestroyWindow(window);
     SDL_Quit();
     return EXIT_SUCCESS;
