@@ -64,7 +64,7 @@ void EventProcesser(){
         if(event.type == SDL_MOUSEMOTION){
             if(holding){
                 SDL_GetMouseState(&x2, &y2);
-                c.ForceMove(x, y, x2, y2);
+                c.Drag(x, y, x2, y2);
             }
         }
     }

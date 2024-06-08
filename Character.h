@@ -16,6 +16,7 @@ class Character{
         const int width = 200, height = 200;
         int frameIndex = 0;
         int lastTime = 0;
+        bool LoR = false;
     public:
         /**
          * Function to set the path for the animation files
@@ -39,7 +40,7 @@ class Character{
          * \param x1,y1 position of the mouse at `SetHoldPoint()` call time - used to calculate the right position after moving
          * \param x2,y2 current position of the mouse
         */
-        void ForceMove(int x1, int y1, int x2, int y2);
+        void Drag(int x1, int y1, int x2, int y2);
 
         /**
          * Function to set the right frame of the animation

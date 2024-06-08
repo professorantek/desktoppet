@@ -22,30 +22,28 @@ void Character::Move(int w, int h){
     int dir = rand()%4;
     switch(dir){
         case 0:{
-            pos.first++;
-            if(pos.first+width>w){
-                pos.first--;
+            if(pos.first+width<w){
+                pos.first++;
+                LoR = true;
             }
             break;
         }
         case 1:{
-            pos.second++;
-            if(pos.second+height>h){
-                pos.second--;
+            if(pos.second+height<h){
+                pos.second++;
             }
             break;
         }
         case 2:{
-            pos.first--;
-            if(pos.first<width){
-                pos.first++;
+            if(pos.first>width){
+                pos.first--;
+                LoR = false;
             }
             break;
         }
         case 3:{
-            pos.second--;
-            if(pos.second<height){
-                pos.second++;
+            if(pos.second>height){
+                pos.second--;
             }
             break;
         }
@@ -56,7 +54,7 @@ void Character::SetHoldPoint(){
     x3 = pos.first;
     y3 = pos.second;
 }
-void Character::ForceMove(int x1, int y1, int x2, int y2){
+void Character::Drag(int x1, int y1, int x2, int y2){
     pos.first = x2-(x1-x3);
     pos.second = y2-(y1-y3);
     return;
@@ -74,11 +72,9 @@ void Character::Display(SDL_Renderer* r){
     rect.y = pos.second;
     rect.h = height;
     rect.w = width;
-    SDL_RenderCopy(r, sprites[frameIndex], NULL, &rect);
+    SDL_RendererFlip flip = SDL_FLIP_NONE;
+    if(LoR){
+        flip = SDL_FLIP_HORIZONTAL;
+    }
+    SDL_RenderCopyEx(r, sprites[frameIndex], NULL, &rect, 0, NULL, flip);
 }
-
-
-
-
-
-
