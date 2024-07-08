@@ -50,6 +50,15 @@ void Character::Move(int w, int h){
     }    
     return;
 }
+bool Character::InsideBoundaries(int x, int y){
+    if(x>pos.first&&
+    x<pos.first+width&&
+    y>pos.second&&
+    y<pos.second+height){
+        return true;
+    }
+    return false;
+}
 void Character::SetHoldPoint(){
     x3 = pos.first;
     y3 = pos.second;
@@ -65,6 +74,12 @@ void Character::Animate(int now){
         lastTime = now;
     }
     
+}
+void Character::Poop(std::vector<Character> &p, SDL_Renderer *r){
+    Character newPoop;
+    newPoop.SetAnimation("poop.gif", r);
+    newPoop.pos = pos;
+    p.push_back(newPoop);    
 }
 void Character::Display(SDL_Renderer* r){
     SDL_Rect rect;

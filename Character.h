@@ -32,9 +32,9 @@ class Character{
          * \param h height of the window
         */
         void Move(int w, int h);
-
+        bool InsideBoundaries(int x, int y);
         void SetHoldPoint();
-
+        void Poop(std::vector<Character> &p, SDL_Renderer *r);
         /**
          * Function to move the character to a defined position
          * \param x1,y1 position of the mouse at `SetHoldPoint()` call time - used to calculate the right position after moving

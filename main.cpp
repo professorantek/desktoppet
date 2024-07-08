@@ -12,6 +12,7 @@ bool var = true, holding = false;
 SDL_Window* window = nullptr;
 SDL_Renderer* renderer = nullptr;
 Character c;
+std::vector<Character> poops;
 
 void CreateWindowAndRenderer(){
     SDL_SetMainReady();
@@ -41,14 +42,19 @@ void EventProcesser(){
                     var = false;
                     break;
                 }
+                case SDLK_SPACE:{
+                    c.Poop(poops, renderer);
+                }
             }
         }
         if(event.type == SDL_MOUSEBUTTONDOWN){
             switch(event.button.button){
                 case SDL_BUTTON_LMASK:{
                     SDL_GetMouseState(&x, &y);
-                    c.SetHoldPoint();
-                    holding = true;
+                    if(c.InsideBoundaries(x,y)){
+                        c.SetHoldPoint();
+                        holding = true;
+                    }
                     break;
                 }
             }
@@ -67,6 +73,7 @@ void EventProcesser(){
                 c.Drag(x, y, x2, y2);
             }
         }
+        
     }
 }
 
@@ -79,10 +86,16 @@ void Loop(){
         EventProcesser();
         SDL_SetRenderDrawColor(renderer, 255,0,255,255);
         SDL_RenderClear(renderer);
-        c.Animate(SDL_GetTicks64());
         if(rand()%20==0&&!holding){
             c.Move(DISPLAYW, DISPLAYH);
         }
+        if(!poops.empty()){
+            for(Character p: poops){
+                p.Animate(lastTime);
+                p.Display(renderer);
+            }
+        }
+        c.Animate(lastTime);
         c.Display(renderer);
         SDL_RenderPresent(renderer);
     }
